@@ -15,6 +15,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class FileHomeController {
     @GetMapping("/index")
     public String homeIndex(){
-        return "view";
+        return "login";
     }
 }
