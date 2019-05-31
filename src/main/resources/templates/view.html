@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>视图文件操作页面</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="icon"  href="../static/favicon.ico"/>
+    <script src="../static/js/vue.js"></script>
+    <script src="../static/js/axios.min.js"></script>
     <!-- 引入样式 -->
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="../static/css/index.css">
     <link rel="stylesheet" href="../static/css/file.css">
-
     <!-- 引入组件库 -->
-    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="../static/js/index.js"></script>
 </head>
 <body>
 <div id="app">
@@ -24,9 +24,8 @@
             </div>
         </el-col>  <el-button type="danger" @click="deleteFile" icon="el-icon-delete" circle></el-button>
         <br/><br/>
-        <el-col :xs="4" :sm="6" :md="8" :lg="8" :xl="11">
+        <el-col :xs="4" :sm="6" :md="8" :lg="3" :xl="8">
             <div class="grid-content bg-purple-light">
-
 
             </div>
         </el-col>
@@ -38,8 +37,6 @@
         <br/><br/>
         <el-col :xs="8" :sm="6" :md="4" :lg="8" :xl="11">
             <div class="grid-content bg-purple-light">
-
-
             </div>
         </el-col>
     </el-row>
@@ -47,19 +44,6 @@
 
 
 <script type="text/javascript" src="../static/js/root.js"></script>
-
-
-<!--<script type="text/javascript">
- function ceshi(){
-     axios.get("www.baidu.com").then(function(response){
-         alert(response);
-     }).catch(function(error){
-         console.log(error);
-     })
- }
-
-</script>-->
-
 </body>
 
 </html>

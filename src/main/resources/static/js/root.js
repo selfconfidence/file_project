@@ -2,7 +2,11 @@ var vue = new Vue({
     el: '#app',
     data: {
             deleteFileLocal:'',
+            jwt:''
     },
+ /*   created:{
+      this.jwt =  this.$router.params.jwt;
+    },*/
     methods:{
         deleteFile(){
             this.$confirm('此操作将永久删除该路径文件, 是否继续?', '提示', {
@@ -13,7 +17,6 @@ var vue = new Vue({
 
                 //删除逻辑操作
                 axios.post('/file/deleteFiles',{"fileLocal":this.deleteFileLocal}).then( response => {
-                    alert(response.data)
                     if (response.data.flag) {
                         this.messageTitle("success",response.data.message);
                         this.$message({
@@ -21,6 +24,7 @@ var vue = new Vue({
                             message: '删除成功!'
                         });
                     }else {
+
                         this.messageTitle("error",response.data.message);
                         this.$message({
                             type: 'error',
@@ -31,7 +35,7 @@ var vue = new Vue({
                 })
 
             }).catch((e) => {
-              alert(e)
+
                 this.$message({
                     type: 'info',
                     message: '已取消删除'
@@ -42,7 +46,7 @@ var vue = new Vue({
            const h = this.$createElement;
            this.$notify({
                title: '删除提示!',
-               message: h('i', { style: 'color: red'}, message),
+               message: h('i', { style: 'color: blue'}, message),
                type: type
            });
        }

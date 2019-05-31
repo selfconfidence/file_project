@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>登录界面</title>
+    <meta charset="utf-8">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <link rel="stylesheet" type="text/css" href="../static/css/login.css" />
+    <link rel="icon"  href="../static/favicon.ico"/>
+    <script src="../static/js/vue.js"></script>
+    <script src="../static/js/axios.min.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="../static/css/index.css">
+    <link rel="stylesheet" href="../static/css/file.css">
+    <!-- 引入组件库 -->
+    <script src="../static/js/index.js"></script>
+</head>
+<body >
+<div id="app">
+<form name="form1" action="" method="post">
+    <h1>文件管理系统</h1>
+    <input class=input_1 id=username  v-model="user.userName" size=15  name="username"  placeholder=用户名><br />
+    <input class=input_1 id=password v-model="user.password" type=text size=15 name="password" placeholder=密码><br />
+
+    <span class="radio_box">
+               <input type="radio" id="radio_2" name="gettype" value="admin">
+               <label for="radio_2"></label>
+               管理员
+       		</span><br/>
+    <el-row>
+
+        <el-button type="primary" @click="login">登录</el-button>
+
+        <el-button type="warning" onclick=document.form1.reset()>重置</el-button>
+
+    </el-row>
+    <!--<input class=input_3 type="button" @click="login" value="登录" />
+    <input class=input_3 type="button"  onclick=document.form1.reset() value="重置" />-->
+</form>
+</div>
+<script type="text/javascript" src="../static/js/login.js"></script>
+<script type="text/javascript">
+    var vue = new Vue({
+        el:'#app',
+        data:{
+            user:{
+                userName:'',
+                password:''
+            },
+            auth:''
+
+        },
+        methods:{
+            login(){
+           axios.post("/user/login",this.user).then( res => {
+              var data =  res.data;
+               if (data.flag) {
+                   this.$router.push({
+                       path:'./view',
+                       params:{
+                           jwt:data.jwt
+                       }
+                   });
+               }else{
+                   this.$message({
+                       type: 'error',
+                       message: data.message
+                   });
+               }
+           } );
+            }
+        }
+    });
+
+</script>
+</body>
+</html>
