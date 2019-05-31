@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: view_files
+  thymeleaf:
+    mode: HTML
+  mvc:
+    static-path-pattern: /static/**
+  resources:
+    static-locations: classpath:/static/
+server:
+  port: 9100
+weiyan:
+  port: 9100
