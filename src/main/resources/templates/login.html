@@ -1,27 +1,27 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>登录界面</title>
     <meta charset="utf-8">
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="cache-control" content="no-cache">
     <meta http-equiv="expires" content="0">
-    <link rel="stylesheet" type="text/css" href="../static/css/login.css" />
-    <link rel="icon"  href="../static/favicon.ico"/>
-    <script src="../static/js/vue.js"></script>
-    <script src="../static/js/axios.min.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/login.css}" />
+    <link rel="icon" th:href="@{/static/favicon.ico}" type="image/x-icon"/>
+    <script th:src="@{/static/js/vue.js}"></script>
+    <script th:src="@{/static/js/axios.min.js}"></script>
     <!-- 引入样式 -->
-    <link rel="stylesheet" href="../static/css/index.css">
-    <link rel="stylesheet" href="../static/css/file.css">
+    <link rel="stylesheet" th:href="@{/static/css/index.css}">
+    <link rel="stylesheet" th:href="@{/static/css/file.css}">
     <!-- 引入组件库 -->
-    <script src="../static/js/index.js"></script>
+    <script src="/static/js/index.js"></script>
 </head>
 <body >
 <div id="app">
 <form name="form1" action="" method="post">
     <h1>文件管理系统</h1>
     <input class=input_1 id=username  v-model="user.userName" size=15  name="username"  placeholder=用户名><br />
-    <input class=input_1 id=password v-model="user.password" type=text size=15 name="password" placeholder=密码><br />
+    <input class=input_1 id=password v-model="user.password" type="password" size=15 name="password" placeholder=密码><br />
 
     <span class="radio_box">
                <input type="radio" id="radio_2" name="gettype" value="admin">
@@ -39,8 +39,9 @@
     <input class=input_3 type="button"  onclick=document.form1.reset() value="重置" />-->
 </form>
 </div>
-<script type="text/javascript" src="../static/js/login.js"></script>
 <script type="text/javascript">
+
+
     var vue = new Vue({
         el:'#app',
         data:{
@@ -51,17 +52,20 @@
             auth:''
 
         },
+        created: function(){
+         this.initMethod(this.auth);
+        },
         methods:{
             login(){
            axios.post("/user/login",this.user).then( res => {
               var data =  res.data;
                if (data.flag) {
-                   this.$router.push({
-                       path:'./view',
-                       params:{
-                           jwt:data.jwt
-                       }
+                   this.$message({
+                       type: 'success',
+                       message: data.message
                    });
+                   this.auth = data.auth;
+                   location.href = "./view?auth="+this.auth;
                }else{
                    this.$message({
                        type: 'error',
@@ -69,6 +73,14 @@
                    });
                }
            } );
+            },
+            initMethod(auth){
+                if (auth == undefined || auth == '' || auth == "" || auth == null) {
+                    this.$message({
+                        type: 'warning',
+                        message: "请先登陆~"
+                    });
+                }
             }
         }
     });
