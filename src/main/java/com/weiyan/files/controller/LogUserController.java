@@ -45,7 +45,6 @@ public class LogUserController {
              resultMap.put("flag", false);
              resultMap.put("message", "用户名密码错误~");
          }
-
         return resultMap;
 
     }
